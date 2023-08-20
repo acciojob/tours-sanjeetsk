@@ -44,7 +44,7 @@ const App = () => {
 
   const [loading, setLoading] = useState(true);
   const [filteredTour, setFilteredTour] = useState(tours);
-  const [showFullInfo, setShowFullInfo] = useState(false);
+  const [showFullInfoFor, setShowFullInfoFor] = useState(null);
 
   useEffect(()=>{
     setTimeout (()=>setLoading (false), 200)
@@ -59,8 +59,8 @@ const App = () => {
     setFilteredTour((preTour) => preTour.filter((tour)=> tour.id !== id));
   }
 
-  const handleToggleInfo = () => {
-    setShowFullInfo(!showFullInfo);
+  const handleToggleInfo = (id) => {
+    setShowFullInfoFor(id === showFullInfoFor ? null : id );
   }
 
     return(
@@ -78,23 +78,16 @@ const App = () => {
                   <h4 className="title">{tour.name}</h4>
                   <p className="tour-price">{tour.price}</p>
                   <div id={`tour-item-para-${tour.id}`}>
-                    {/* <p className="tour-info">
-                      {
-                        showFullInfo ? 
-                        tour.info  // Show the full info
-                        : `${tour.info.slice(0,200)}...`   //Show the first 200 characters
-                      }
-                    </p> */}
                     {
-                      showFullInfo ?
+                      showFullInfoFor === tour.id ?
                       <p className="tour-info">{tour.info}
                       </p>
                       : 
                       <p id={`see-more-${tour.id}`}>{`${tour.info.slice(0,200)}...`}
                       </p>
                     }
-                    <button className="show-more-btn" onClick={handleToggleInfo}>
-                      {showFullInfo ? "See Less" : "See More"}
+                    <button className="show-more-btn" onClick={() => handleToggleInfo(tour.id)}>
+                      {showFullInfoFor  === tour.id ? "See Less" : "See More"}
                     </button><br></br>
                   </div>
                   <button id={`delete-btn-${tour.id}`} value={tour.id} onClick={() => handleDelete(tour.id)}>Delete Tour</button>
