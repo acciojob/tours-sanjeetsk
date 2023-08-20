@@ -83,7 +83,7 @@ const App = () => {
                       <p className="tour-info">{tour.info}
                       </p>
                       : 
-                      <p id={`see-more-${tour.id}`}>{`${tour.info.slice(0,200)}...`}
+                      <p id={`see-more-${tour.id}`}>{`${tour.info.slice(0,200)}`}
                       </p>
                     }
                     <button className="show-more-btn" onClick={() => handleToggleInfo(tour.id)}>
