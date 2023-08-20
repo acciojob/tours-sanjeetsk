@@ -1,5 +1,5 @@
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import '../styles/App.css';
 
 const tours = [
@@ -46,8 +46,8 @@ const App = () => {
   const [filteredTour, setFilteredTour] = useState(tours);
   const [showFullInfoFor, setShowFullInfoFor] = useState(null);
 
-  useEffect(()=>{
-    setTimeout (()=>setLoading (false), 200)
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 200)
   }, []);
 
   function handleRefresh() {
@@ -55,20 +55,20 @@ const App = () => {
     setFilteredTour(tours);
   }
 
-  const handleDelete = (id) =>{
-    setFilteredTour((preTour) => preTour.filter((tour)=> tour.id !== id));
+  const handleDelete = (id) => {
+    setFilteredTour((preTour) => preTour.filter((tour) => tour.id !== id));
   }
 
   const handleToggleInfo = (id) => {
-    setShowFullInfoFor(id === showFullInfoFor ? null : id );
+    setShowFullInfoFor(id === showFullInfoFor ? null : id);
   }
 
-    return(
-      <main id="main">
-        {
-          loading ? (
-            <h3>Loading...</h3>
-          )
+  return (
+    <main id="main">
+      {
+        loading ? (
+          <h3>Loading...</h3>
+        )
           :
           (
             filteredTour.length ? (
@@ -80,29 +80,32 @@ const App = () => {
                   <div id={`tour-item-para-${tour.id}`}>
                     {
                       showFullInfoFor === tour.id ?
-                      <p className="tour-info">{tour.info}
-                      </p>
-                      : 
-                      <p id={`see-more-${tour.id}`}>{`${tour.info.slice(0,200)}`}
-                      </p>
+                        <span className="tour-info">{tour.info}
+                          <button className="show-less-btn" onClick={() => handleToggleInfo(tour.id)}>
+                            See Less
+                          </button>
+                        </span>
+                        :
+                        <span id={`see-more-${tour.id}`}>{`${tour.info.slice(0, 200)}`}
+                          <button className="show-more-btn" onClick={() => handleToggleInfo(tour.id)}>
+                            See More
+                          </button>
+                        </span>
                     }
-                    <button className="show-more-btn" onClick={() => handleToggleInfo(tour.id)}>
-                      {showFullInfoFor  === tour.id ? "See Less" : "See More"}
-                    </button><br></br>
                   </div>
                   <button id={`delete-btn-${tour.id}`} value={tour.id} onClick={() => handleDelete(tour.id)}>Delete Tour</button>
                 </ul>
-            ))
+              ))
             ) : (
-            <>
-              <h3>No tours left</h3>
-              <button className="btn" onClick={handleRefresh}>Refresh</button>
-            </>
+              <>
+                <h3>No tours left</h3>
+                <button className="btn" onClick={handleRefresh}>Refresh</button>
+              </>
             )
           )
-        }
+      }
 
-      </main>
-    )
+    </main>
+  )
 }
 export default App;
