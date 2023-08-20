@@ -77,16 +77,18 @@ const App = () => {
                   <img src={tour.image}></img>
                   <h4 className="title">{tour.name}</h4>
                   <p className="tour-price">{tour.price}</p>
-                  <p className="tour-info">
-                    {
-                      showFullInfo ? tour.info  // Show the full info
-                      : `${tour.info.slice(0,200)}...`   //Show the first 200 characters
-                    }
-                  </p>
-                  <button className="show-more-btn" onClick={handleToggleInfo}>
-                    {showFullInfo ? "See Lee" : "See More"}
-                  </button><br></br>
-                  <button className="delete-btn" value={tour.id} onClick={() => handleDelete(tour.id)}>Delete Tour</button>
+                  <div id={`tour-item-para-${tour.id}`}>
+                    <p className="tour-info">
+                      {
+                        showFullInfo ? tour.info  // Show the full info
+                        : `${tour.info.slice(0,200)}...`   //Show the first 200 characters
+                      }
+                    </p>
+                    <button className="show-more-btn" onClick={handleToggleInfo}>
+                      {showFullInfo ? "See Lee" : "See More"}
+                    </button><br></br>
+                  </div>
+                  <button id={`delete-btn-${tour.id}`} value={tour.id} onClick={() => handleDelete(tour.id)}>Delete Tour</button>
                 </ul>
             ))
             ) : (
