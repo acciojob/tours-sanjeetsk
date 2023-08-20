@@ -80,7 +80,8 @@ const App = () => {
                   <div id={`tour-item-para-${tour.id}`}>
                     <p className="tour-info">
                       {
-                        showFullInfo ? tour.info  // Show the full info
+                        showFullInfo ? 
+                        tour.info  // Show the full info
                         : `${tour.info.slice(0,200)}...`   //Show the first 200 characters
                       }
                     </p>
